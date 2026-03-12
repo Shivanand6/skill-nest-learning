@@ -1,14 +1,17 @@
 import { Link, useLocation } from "react-router-dom";
-import { BookOpen, ShoppingCart, GraduationCap, Menu, X } from "lucide-react";
+import { ShoppingCart, GraduationCap, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useLearning } from "@/context/LearningContext";
 import { motion, AnimatePresence } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/courses", label: "Courses" },
   { to: "/my-learning", label: "My Learning" },
   { to: "/notes", label: "Notes" },
+  { to: "/leaderboard", label: "Leaderboard" },
+  { to: "/faq", label: "FAQ" },
   { to: "/feedback", label: "Feedback" },
 ];
 
@@ -45,7 +48,8 @@ const Navbar = () => {
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Link to="/cart" className="relative p-2 rounded-lg hover:bg-muted transition-colors">
               <ShoppingCart className="w-5 h-5 text-muted-foreground" />
               {cart.length > 0 && (
