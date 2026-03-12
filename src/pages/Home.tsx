@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, Award, Users, Zap } from "lucide-react";
-import { courses } from "@/data/courses";
+import { ArrowRight, BookOpen, Award, Users, Zap, TrendingUp, Trophy } from "lucide-react";
+import { freeCourses, paidCourses } from "@/data/courses";
 import CourseCard from "@/components/CourseCard";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -13,8 +13,6 @@ const stats = [
 ];
 
 const Home = () => {
-  const featured = courses.slice(0, 3);
-
   return (
     <div className="min-h-screen">
       {/* Hero */}
@@ -47,7 +45,6 @@ const Home = () => {
             </div>
           </motion.div>
         </div>
-        {/* Decorative blobs */}
         <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute -bottom-32 -left-32 w-80 h-80 rounded-full bg-secondary/10 blur-3xl" />
       </section>
@@ -71,19 +68,45 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Featured Courses */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      {/* Free Courses */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground">Featured Courses</h2>
-            <p className="text-muted-foreground mt-1">Start learning today</p>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center">
+              <TrendingUp className="w-5 h-5 text-secondary" />
+            </div>
+            <div>
+              <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground">Free Courses</h2>
+              <p className="text-muted-foreground text-sm mt-0.5">Start learning without spending a penny</p>
+            </div>
           </div>
           <Link to="/courses" className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
             View all <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featured.map(c => <CourseCard key={c.id} course={c} />)}
+          {freeCourses.slice(0, 3).map(c => <CourseCard key={c.id} course={c} />)}
+        </div>
+      </section>
+
+      {/* Premium Courses */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
+              <Trophy className="w-5 h-5 text-accent" />
+            </div>
+            <div>
+              <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground">Premium Courses</h2>
+              <p className="text-muted-foreground text-sm mt-0.5">In-depth courses at just ₹49</p>
+            </div>
+          </div>
+          <Link to="/courses" className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
+            View all <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {paidCourses.slice(0, 3).map(c => <CourseCard key={c.id} course={c} />)}
         </div>
       </section>
 
