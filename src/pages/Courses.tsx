@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Search } from "lucide-react";
-import { courses, categories } from "@/data/courses";
+import { Search, TrendingUp, Trophy } from "lucide-react";
+import { courses, categories, freeCourses, paidCourses } from "@/data/courses";
 import CourseCard from "@/components/CourseCard";
 
 const Courses = () => {
@@ -15,6 +15,8 @@ const Courses = () => {
     const matchPrice = priceFilter === "all" || (priceFilter === "free" ? c.price === 0 : c.price > 0);
     return matchSearch && matchCat && matchPrice;
   });
+
+  const showSections = !search && category === "All" && priceFilter === "all";
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -62,7 +64,33 @@ const Courses = () => {
         ))}
       </div>
 
-      {filtered.length === 0 ? (
+      {showSections ? (
+        <>
+          {/* Free Section */}
+          <div className="mb-12">
+            <div className="flex items-center gap-2 mb-6">
+              <TrendingUp className="w-5 h-5 text-secondary" />
+              <h2 className="font-display text-xl font-bold text-foreground">Free Courses</h2>
+              <span className="ml-2 px-2 py-0.5 rounded-full bg-secondary/10 text-secondary text-xs font-semibold">{freeCourses.length} courses</span>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {freeCourses.map(c => <CourseCard key={c.id} course={c} />)}
+            </div>
+          </div>
+
+          {/* Paid Section */}
+          <div>
+            <div className="flex items-center gap-2 mb-6">
+              <Trophy className="w-5 h-5 text-accent" />
+              <h2 className="font-display text-xl font-bold text-foreground">Premium Courses</h2>
+              <span className="ml-2 px-2 py-0.5 rounded-full bg-accent/10 text-accent text-xs font-semibold">{paidCourses.length} courses</span>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {paidCourses.map(c => <CourseCard key={c.id} course={c} />)}
+            </div>
+          </div>
+        </>
+      ) : filtered.length === 0 ? (
         <div className="text-center py-20 text-muted-foreground">No courses found.</div>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
