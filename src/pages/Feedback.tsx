@@ -2,21 +2,38 @@ import { useState } from "react";
 import { Star, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/context/AuthContext";
 
 const Feedback = () => {
+  const { user } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !rating || !message) {
       toast.error("Please fill all fields");
       return;
     }
-    toast.success("Thank you for your feedback!");
-    setName(""); setEmail(""); setRating(0); setMessage("");
+    if (!user) {
+      toast.error("Please sign in to submit feedback");
+      return;
+    }
+    setSubmitting(true);
+    const { error } = await supabase.from("feedback").insert({
+      name, email, rating, message, user_id: user.id,
+    });
+    if (error) {
+      toast.error("Failed to submit feedback");
+    } else {
+      toast.success("Thank you for your feedback!");
+      setName(""); setEmail(""); setRating(0); setMessage("");
+    }
+    setSubmitting(false);
   };
 
   return (
@@ -59,9 +76,10 @@ const Feedback = () => {
             placeholder="Share your experience..."
           />
         </div>
-        <Button type="submit" className="w-full gradient-bg text-primary-foreground font-semibold">
-          <Send className="w-4 h-4 mr-2" /> Submit Feedback
+        <Button type="submit" disabled={submitting} className="w-full gradient-bg text-primary-foreground font-semibold">
+          <Send className="w-4 h-4 mr-2" /> {submitting ? "Submitting..." : "Submit Feedback"}
         </Button>
+        {!user && <p className="text-xs text-muted-foreground text-center">Please sign in to submit feedback</p>}
       </form>
     </div>
   );

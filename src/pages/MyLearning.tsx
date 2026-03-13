@@ -1,11 +1,12 @@
 import { courses } from "@/data/courses";
 import { useLearning } from "@/context/LearningContext";
 import { Link } from "react-router-dom";
-import { Play, Award, Download } from "lucide-react";
+import { Play, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import CertificateDownload from "@/components/CertificateDownload";
 
 const MyLearning = () => {
   const { enrolledCourses, getProgress, generateCertificate, hasCertificate, getCertificateId } = useLearning();
@@ -77,7 +78,7 @@ const MyLearning = () => {
                 </div>
                 <p className="text-xs text-muted-foreground">{progress}% complete</p>
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
                   <Link to={`/player/${courseId}`} className="flex-1">
                     <Button variant="outline" size="sm" className="w-full text-xs">
                       <Play className="w-3 h-3 mr-1" /> {completed ? "Review" : "Continue"}
@@ -88,10 +89,12 @@ const MyLearning = () => {
                       <Award className="w-3 h-3 mr-1" /> Get Cert
                     </Button>
                   )}
-                  {hasCert && (
-                    <Button size="sm" variant="outline" className="text-xs text-secondary border-secondary/30" disabled>
-                      <Download className="w-3 h-3 mr-1" /> {certId}
-                    </Button>
+                  {hasCert && certId && (
+                    <CertificateDownload
+                      courseName={course.title}
+                      studentName={studentName || "Student"}
+                      certId={certId}
+                    />
                   )}
                 </div>
               </div>
