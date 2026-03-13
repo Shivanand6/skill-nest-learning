@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, GraduationCap, Menu, X } from "lucide-react";
+import { ShoppingCart, GraduationCap, Menu, X, LogIn, LogOut, Shield, User } from "lucide-react";
 import { useState } from "react";
 import { useLearning } from "@/context/LearningContext";
+import { useAuth } from "@/context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 
@@ -18,6 +19,7 @@ const navLinks = [
 const Navbar = () => {
   const { pathname } = useLocation();
   const { cart } = useLearning();
+  const { user, isAdmin, signOut, profile } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -46,6 +48,16 @@ const Navbar = () => {
                 {l.label}
               </Link>
             ))}
+            {isAdmin && (
+              <Link
+                to="/admin"
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  pathname === "/admin" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
+              >
+                <Shield className="w-4 h-4 inline mr-1" />Admin
+              </Link>
+            )}
           </div>
 
           <div className="flex items-center gap-2">
@@ -58,6 +70,20 @@ const Navbar = () => {
                 </span>
               )}
             </Link>
+            {user ? (
+              <div className="flex items-center gap-2">
+                <span className="hidden sm:block text-xs text-muted-foreground max-w-[120px] truncate">
+                  {profile?.display_name || user.email}
+                </span>
+                <button onClick={signOut} className="p-2 rounded-lg hover:bg-muted transition-colors" title="Sign out">
+                  <LogOut className="w-4 h-4 text-muted-foreground" />
+                </button>
+              </div>
+            ) : (
+              <Link to="/auth" className="p-2 rounded-lg hover:bg-muted transition-colors" title="Sign in">
+                <LogIn className="w-5 h-5 text-muted-foreground" />
+              </Link>
+            )}
             <button className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -86,6 +112,11 @@ const Navbar = () => {
                   {l.label}
                 </Link>
               ))}
+              {isAdmin && (
+                <Link to="/admin" onClick={() => setMobileOpen(false)} className="block px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground">
+                  <Shield className="w-4 h-4 inline mr-1" />Admin
+                </Link>
+              )}
             </div>
           </motion.div>
         )}
