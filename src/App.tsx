@@ -49,7 +49,7 @@ const App = () => (
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
-              <AIAssistant />
+              
             </BrowserRouter>
           </LearningProvider>
         </AuthProvider>
