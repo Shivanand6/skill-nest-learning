@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { LearningProvider } from "@/context/LearningContext";
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
-import AIAssistant from "@/components/AIAssistant";
+
 import Home from "./pages/Home";
 import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
@@ -49,7 +49,7 @@ const App = () => (
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
-              <AIAssistant />
+              
             </BrowserRouter>
           </LearningProvider>
         </AuthProvider>

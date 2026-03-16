@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen, Award, Users, Zap, TrendingUp, Trophy } from "lucide-react";
 import { freeCourses, paidCourses } from "@/data/courses";
 import CourseCard from "@/components/CourseCard";
+import AIStudyAssistant from "@/components/AIStudyAssistant";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
@@ -109,6 +110,9 @@ const Home = () => {
           {paidCourses.slice(0, 3).map(c => <CourseCard key={c.id} course={c} />)}
         </div>
       </section>
+
+      {/* AI Study Assistant */}
+      <AIStudyAssistant />
 
       {/* Footer */}
       <footer className="border-t border-border/50 bg-muted/30">
