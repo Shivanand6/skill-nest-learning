@@ -111,6 +111,9 @@ const Home = () => {
         </div>
       </section>
 
+      {/* AI Study Assistant */}
+      <AIStudyAssistant />
+
       {/* Footer */}
       <footer className="border-t border-border/50 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-sm text-muted-foreground">
