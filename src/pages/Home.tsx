@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen, Award, Users, Zap, TrendingUp, Trophy } from "lucide-react";
 import { freeCourses, paidCourses } from "@/data/courses";
 import CourseCard from "@/components/CourseCard";
+import AIStudyAssistant from "@/components/AIStudyAssistant";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
