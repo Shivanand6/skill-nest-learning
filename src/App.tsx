@@ -12,6 +12,7 @@ import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
 import CoursePlayer from "./pages/CoursePlayer";
 import Dashboard from "./pages/Dashboard";
+import SentimentAnalyzer from "./pages/SentimentAnalyzer";
 import Cart from "./pages/Cart";
 import Notes from "./pages/Notes";
 import Feedback from "./pages/Feedback";
