@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, GraduationCap, Menu, X, LogIn, LogOut, LayoutDashboard } from "lucide-react";
+import { ShoppingCart, GraduationCap, Menu, X, LogIn, LogOut, LayoutDashboard, Brain } from "lucide-react";
 import { useState } from "react";
 import { useLearning } from "@/context/LearningContext";
 import { useAuth } from "@/context/AuthContext";
@@ -10,6 +10,7 @@ const navLinks = [
   { to: "/", label: "Home" },
   { to: "/courses", label: "Courses" },
   { to: "/dashboard", label: "Dashboard" },
+  { to: "/sentiment-analyzer", label: "Sentiment" },
   { to: "/notes", label: "Notes" },
   { to: "/leaderboard", label: "Leaderboard" },
   { to: "/faq", label: "FAQ" },
