@@ -38,7 +38,7 @@ const Home = () => {
                   Browse Courses <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
-              <Link to="/my-learning">
+              <Link to="/dashboard">
                 <Button size="lg" variant="outline" className="font-semibold px-6">
                   My Dashboard
                 </Button>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { GraduationCap, Eye, EyeOff } from "lucide-react";
+import { GraduationCap, Eye, EyeOff, UserCircle, BookOpenCheck } from "lucide-react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 
@@ -12,11 +12,12 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [role, setRole] = useState<"user" | "instructor">("user");
   const [showPw, setShowPw] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   if (loading) return <div className="flex items-center justify-center min-h-screen text-muted-foreground">Loading...</div>;
-  if (user) return <Navigate to="/" replace />;
+  if (user) return <Navigate to="/dashboard" replace />;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,8 +29,8 @@ const Auth = () => {
         toast.success("Password reset email sent!");
         setMode("login");
       } else if (mode === "signup") {
-        if (!name.trim()) { toast.error("Please enter your name"); return; }
-        const { error } = await signUp(email, password, name);
+        if (!name.trim()) { toast.error("Please enter your name"); setSubmitting(false); return; }
+        const { error } = await signUp(email, password, name, role);
         if (error) throw error;
         toast.success("Account created! Check your email to confirm.");
       } else {
@@ -65,14 +66,47 @@ const Auth = () => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {mode === "signup" && (
-            <div>
-              <label className="text-sm font-medium text-foreground mb-1 block">Full Name</label>
-              <input
-                type="text" value={name} onChange={e => setName(e.target.value)}
-                className="w-full px-3 py-2.5 rounded-xl bg-card border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
-                placeholder="John Doe" required
-              />
-            </div>
+            <>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1 block">Full Name</label>
+                <input
+                  type="text" value={name} onChange={e => setName(e.target.value)}
+                  className="w-full px-3 py-2.5 rounded-xl bg-card border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                  placeholder="John Doe" required
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-2 block">I want to join as</label>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setRole("user")}
+                    className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all ${
+                      role === "user"
+                        ? "border-primary bg-primary/5 text-primary"
+                        : "border-border bg-card text-muted-foreground hover:border-primary/30"
+                    }`}
+                  >
+                    <UserCircle className="w-6 h-6" />
+                    <span className="text-sm font-medium">Student</span>
+                    <span className="text-[10px] opacity-70">Learn & grow</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setRole("instructor")}
+                    className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all ${
+                      role === "instructor"
+                        ? "border-primary bg-primary/5 text-primary"
+                        : "border-border bg-card text-muted-foreground hover:border-primary/30"
+                    }`}
+                  >
+                    <BookOpenCheck className="w-6 h-6" />
+                    <span className="text-sm font-medium">Instructor</span>
+                    <span className="text-[10px] opacity-70">Teach & inspire</span>
+                  </button>
+                </div>
+              </div>
+            </>
           )}
           <div>
             <label className="text-sm font-medium text-foreground mb-1 block">Email</label>
