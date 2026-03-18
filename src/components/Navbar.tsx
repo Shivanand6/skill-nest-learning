@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, GraduationCap, Menu, X, LogIn, LogOut, Shield, User } from "lucide-react";
+import { ShoppingCart, GraduationCap, Menu, X, LogIn, LogOut, LayoutDashboard } from "lucide-react";
 import { useState } from "react";
 import { useLearning } from "@/context/LearningContext";
 import { useAuth } from "@/context/AuthContext";
@@ -9,7 +9,7 @@ import ThemeToggle from "./ThemeToggle";
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/courses", label: "Courses" },
-  { to: "/my-learning", label: "My Learning" },
+  { to: "/dashboard", label: "Dashboard" },
   { to: "/notes", label: "Notes" },
   { to: "/leaderboard", label: "Leaderboard" },
   { to: "/faq", label: "FAQ" },
@@ -19,8 +19,10 @@ const navLinks = [
 const Navbar = () => {
   const { pathname } = useLocation();
   const { cart } = useLearning();
-  const { user, isAdmin, signOut, profile } = useAuth();
+  const { user, signOut, profile, userRole } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const roleLabel = userRole === "admin" ? "Admin" : userRole === "instructor" ? "Instructor" : "Student";
 
   return (
     <nav className="sticky top-0 z-50 glass-card border-b border-border/50">
@@ -45,19 +47,10 @@ const Navbar = () => {
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
+                {l.label === "Dashboard" && <LayoutDashboard className="w-4 h-4 inline mr-1" />}
                 {l.label}
               </Link>
             ))}
-            {isAdmin && (
-              <Link
-                to="/admin"
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  pathname === "/admin" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
-              >
-                <Shield className="w-4 h-4 inline mr-1" />Admin
-              </Link>
-            )}
           </div>
 
           <div className="flex items-center gap-2">
@@ -72,9 +65,12 @@ const Navbar = () => {
             </Link>
             {user ? (
               <div className="flex items-center gap-2">
-                <span className="hidden sm:block text-xs text-muted-foreground max-w-[120px] truncate">
-                  {profile?.display_name || user.email}
-                </span>
+                <div className="hidden sm:flex flex-col items-end">
+                  <span className="text-xs text-foreground font-medium max-w-[120px] truncate">
+                    {profile?.display_name || user.email}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground">{roleLabel}</span>
+                </div>
                 <button onClick={signOut} className="p-2 rounded-lg hover:bg-muted transition-colors" title="Sign out">
                   <LogOut className="w-4 h-4 text-muted-foreground" />
                 </button>
@@ -112,11 +108,6 @@ const Navbar = () => {
                   {l.label}
                 </Link>
               ))}
-              {isAdmin && (
-                <Link to="/admin" onClick={() => setMobileOpen(false)} className="block px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground">
-                  <Shield className="w-4 h-4 inline mr-1" />Admin
-                </Link>
-              )}
             </div>
           </motion.div>
         )}

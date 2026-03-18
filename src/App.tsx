@@ -11,7 +11,7 @@ import Home from "./pages/Home";
 import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
 import CoursePlayer from "./pages/CoursePlayer";
-import MyLearning from "./pages/MyLearning";
+import Dashboard from "./pages/Dashboard";
 import Cart from "./pages/Cart";
 import Notes from "./pages/Notes";
 import Feedback from "./pages/Feedback";
@@ -19,7 +19,6 @@ import FAQ from "./pages/FAQ";
 import Leaderboard from "./pages/Leaderboard";
 import Auth from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
-import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,7 +37,7 @@ const App = () => (
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/course/:id" element={<CourseDetail />} />
                 <Route path="/player/:id" element={<CoursePlayer />} />
-                <Route path="/my-learning" element={<MyLearning />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/notes" element={<Notes />} />
                 <Route path="/feedback" element={<Feedback />} />
@@ -46,10 +45,8 @@ const App = () => (
                 <Route path="/leaderboard" element={<Leaderboard />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
-                <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
-              
             </BrowserRouter>
           </LearningProvider>
         </AuthProvider>

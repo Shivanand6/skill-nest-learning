@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
-import { Navigate } from "react-router-dom";
-import { Users, BookOpen, DollarSign, MessageSquare, Star } from "lucide-react";
+import { Users, BookOpen, DollarSign, MessageSquare, Star, Shield } from "lucide-react";
 import { courses } from "@/data/courses";
 import { motion } from "framer-motion";
 
 const AdminDashboard = () => {
-  const { user, isAdmin, loading } = useAuth();
+  const { profile } = useAuth();
   const [stats, setStats] = useState({ users: 0, enrollments: 0, revenue: 0, feedbackCount: 0 });
   const [feedbackList, setFeedbackList] = useState<any[]>([]);
   const [enrollmentList, setEnrollmentList] = useState<any[]>([]);
 
   useEffect(() => {
-    if (isAdmin) fetchData();
-  }, [isAdmin]);
+    fetchData();
+  }, []);
 
   const fetchData = async () => {
     const [profilesRes, enrollmentsRes, feedbackRes] = await Promise.all([
@@ -39,9 +38,6 @@ const AdminDashboard = () => {
     setEnrollmentList(enrollments);
   };
 
-  if (loading) return <div className="p-10 text-center text-muted-foreground">Loading...</div>;
-  if (!user || !isAdmin) return <Navigate to="/" replace />;
-
   const statCards = [
     { icon: Users, label: "Total Users", value: stats.users, color: "text-primary" },
     { icon: BookOpen, label: "Enrollments", value: stats.enrollments, color: "text-secondary" },
@@ -51,8 +47,13 @@ const AdminDashboard = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <h1 className="font-display text-3xl font-bold text-foreground mb-2">Admin Dashboard</h1>
-      <p className="text-muted-foreground mb-8">Platform overview and management</p>
+      <div className="flex items-center gap-3 mb-2">
+        <Shield className="w-7 h-7 text-primary" />
+        <h1 className="font-display text-3xl font-bold text-foreground">Admin Dashboard</h1>
+      </div>
+      <p className="text-muted-foreground mb-8">
+        Welcome, {profile?.display_name || "Admin"}! Platform overview and management.
+      </p>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
         {statCards.map((s, i) => (
