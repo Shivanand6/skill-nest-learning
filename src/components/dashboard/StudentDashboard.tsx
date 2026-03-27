@@ -41,7 +41,7 @@ const StudentDashboard = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div>
       <div className="mb-8">
         <h1 className="font-display text-3xl font-bold text-foreground mb-1">
           Welcome back, {profile?.display_name || "Student"} 👋

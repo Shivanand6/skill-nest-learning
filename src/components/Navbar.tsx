@@ -1,8 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, GraduationCap, Menu, X, LogIn, LogOut, LayoutDashboard, Brain } from "lucide-react";
+import { GraduationCap, Menu, X, LayoutDashboard } from "lucide-react";
 import { useState } from "react";
-import { useLearning } from "@/context/LearningContext";
-import { useAuth } from "@/context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 
@@ -19,11 +17,7 @@ const navLinks = [
 
 const Navbar = () => {
   const { pathname } = useLocation();
-  const { cart } = useLearning();
-  const { user, signOut, profile, userRole } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  const roleLabel = userRole === "admin" ? "Admin" : userRole === "instructor" ? "Instructor" : "Student";
 
   return (
     <nav className="sticky top-0 z-50 glass-card border-b border-border/50">
@@ -56,31 +50,6 @@ const Navbar = () => {
 
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Link to="/cart" className="relative p-2 rounded-lg hover:bg-muted transition-colors">
-              <ShoppingCart className="w-5 h-5 text-muted-foreground" />
-              {cart.length > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-5 h-5 rounded-full gradient-bg text-primary-foreground text-[10px] flex items-center justify-center font-bold">
-                  {cart.length}
-                </span>
-              )}
-            </Link>
-            {user ? (
-              <div className="flex items-center gap-2">
-                <div className="hidden sm:flex flex-col items-end">
-                  <span className="text-xs text-foreground font-medium max-w-[120px] truncate">
-                    {profile?.display_name || user.email}
-                  </span>
-                  <span className="text-[10px] text-muted-foreground">{roleLabel}</span>
-                </div>
-                <button onClick={signOut} className="p-2 rounded-lg hover:bg-muted transition-colors" title="Sign out">
-                  <LogOut className="w-4 h-4 text-muted-foreground" />
-                </button>
-              </div>
-            ) : (
-              <Link to="/auth" className="p-2 rounded-lg hover:bg-muted transition-colors" title="Sign in">
-                <LogIn className="w-5 h-5 text-muted-foreground" />
-              </Link>
-            )}
             <button className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
