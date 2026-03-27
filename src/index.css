@@ -59,33 +59,33 @@
   }
 
   .dark {
-    --background: 225 35% 5%;
-    --foreground: 215 20% 93%;
-    --card: 225 35% 9%;
-    --card-foreground: 215 20% 93%;
-    --popover: 225 35% 9%;
-    --popover-foreground: 215 20% 93%;
-    --primary: 252 85% 65%;
+    --background: 260 15% 4%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 100%;
+    --card-foreground: 260 15% 10%;
+    --popover: 260 20% 8%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 265 90% 60%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 180 60% 45%;
+    --secondary: 280 70% 50%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 225 30% 14%;
-    --muted-foreground: 220 15% 55%;
-    --accent: 35 95% 55%;
+    --muted: 260 20% 12%;
+    --muted-foreground: 260 10% 55%;
+    --accent: 270 80% 65%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
-    --border: 225 30% 15%;
-    --input: 225 30% 15%;
-    --ring: 252 85% 65%;
-    --sidebar-background: 225 35% 7%;
-    --sidebar-foreground: 215 20% 93%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --border: 260 20% 14%;
+    --input: 260 20% 14%;
+    --ring: 265 90% 60%;
+    --sidebar-background: 260 15% 6%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 265 90% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 225 30% 14%;
-    --sidebar-accent-foreground: 215 20% 93%;
-    --sidebar-border: 225 30% 15%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 260 20% 12%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 260 20% 14%;
+    --sidebar-ring: 265 90% 60%;
   }
 }
 
@@ -108,6 +108,12 @@
     backdrop-filter: blur(16px);
     border: 1px solid hsl(var(--border) / 0.5);
     box-shadow: var(--shadow-glass);
+  }
+  .dark .glass-card {
+    background: hsl(260 20% 10% / 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(265 90% 60% / 0.15);
+    box-shadow: 0 8px 32px 0 hsl(265 90% 60% / 0.08);
   }
   .gradient-text {
     background: var(--gradient-primary);
