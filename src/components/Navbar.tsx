@@ -9,12 +9,12 @@ import ThemeToggle from "./ThemeToggle";
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/courses", label: "Courses" },
-  { to: "/dashboard", label: "Dashboard" },
   { to: "/sentiment-analyzer", label: "Sentiment" },
   { to: "/notes", label: "Notes" },
   { to: "/leaderboard", label: "Leaderboard" },
   { to: "/faq", label: "FAQ" },
   { to: "/feedback", label: "Feedback" },
+  { to: "/dashboard", label: "Dashboard" },
 ];
 
 const Navbar = () => {
