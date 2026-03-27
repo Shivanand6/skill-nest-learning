@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, Award, Users, Zap, TrendingUp, Trophy } from "lucide-react";
+import { ArrowRight, BookOpen, Award, Users, Zap, TrendingUp, Trophy, Brain, FileText } from "lucide-react";
 import { freeCourses, paidCourses } from "@/data/courses";
 import CourseCard from "@/components/CourseCard";
 import AIStudyAssistant from "@/components/AIStudyAssistant";
@@ -113,6 +113,54 @@ const Home = () => {
 
       {/* AI Study Assistant */}
       <AIStudyAssistant />
+
+      {/* Sentiment Analyzer & Notes Quick Access */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid sm:grid-cols-2 gap-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="rounded-2xl bg-card border border-border/60 p-8 space-y-4"
+            style={{ boxShadow: "var(--shadow-card)" }}
+          >
+            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Brain className="w-6 h-6 text-primary" />
+            </div>
+            <h3 className="font-display text-xl font-bold text-card-foreground">Sentiment Analyzer</h3>
+            <p className="text-muted-foreground text-sm">
+              Learn Natural Language Processing by analyzing text sentiment, emotions, and tone with our AI-powered tool.
+            </p>
+            <Link to="/sentiment-analyzer">
+              <Button variant="outline" className="font-semibold">
+                Try Analyzer <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="rounded-2xl bg-card border border-border/60 p-8 space-y-4"
+            style={{ boxShadow: "var(--shadow-card)" }}
+          >
+            <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center">
+              <FileText className="w-6 h-6 text-secondary" />
+            </div>
+            <h3 className="font-display text-xl font-bold text-card-foreground">Study Notes</h3>
+            <p className="text-muted-foreground text-sm">
+              Access downloadable Markdown study materials to complement your courses and reinforce your learning.
+            </p>
+            <Link to="/notes">
+              <Button variant="outline" className="font-semibold">
+                View Notes <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="border-t border-border/50 bg-muted/30">
